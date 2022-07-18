@@ -1,9 +1,13 @@
 /* projet dataviz */
 h1 {
-    color:blueviolet
+    color:blueviolet;
 }
 
 #map { 
     height: 180px; 
 }
 
+h2 {
+    color:rgba(150, 101, 195, 0.547) ;
+    font-style: italic
+} 
