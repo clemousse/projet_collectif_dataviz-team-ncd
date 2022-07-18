@@ -1,0 +1,4 @@
+- historique des trajectoires passées
+- possibilité de changer l'icône de l'iss par l'utilisateur
+- tracer le trajectoire de l'iss
+- récupérer image aléatoire de l'iss en cliquant dessus
