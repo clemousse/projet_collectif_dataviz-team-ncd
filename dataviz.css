@@ -4,7 +4,8 @@ h1 {
 }
 
 #map { 
-    height: 180px; 
+    height:768px;
+    width:768px;
 }
 
 h2 {
