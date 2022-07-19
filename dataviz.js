@@ -14,41 +14,45 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let latlngs = [];
+let issIcon = L.icon({
+    iconUrl:'./img-icon/iss.png',
+    iconSize:[33, 30] // size of the icon => width/height
+    //popupAnchor:[-3, -76] // point from which the popup should open relative to the iconAnchor
+    //shadowSize:[50, 64], // size of the shadow
+    //iconAnchor:[22, 94], // point of the icon which will correspond to marker's location
+    //shadowAnchor:[4, 62],  // the same for the shadow
+    //shadowUrl:'leaf-shadow.png'
+});
+let marker = L.marker([48.856614,2.3522219],{icon: issIcon});
 
 async function callIss() {
     let response = await fetch('http://api.open-notify.org/iss-now.json');
     if (response.ok) { // if HTTP-status is 200-299
         // get the response body and parse it => json object
+        map.removeLayer(marker);
         let json = await response.json();
         let lat = json.iss_position.latitude;
         let lon = json.iss_position.longitude;
+        latlngs.push([lat,lon]);
+        //console.log(latlngs);
         // geolocalize iss with lat and long and the icon
-        let issIcon = L.icon({
-            iconUrl:'./img-icon/iss.png',
-            iconSize:[33, 30] // size of the icon => width/height
-            //popupAnchor:[-3, -76] // point from which the popup should open relative to the iconAnchor
-            //shadowSize:[50, 64], // size of the shadow
-            //iconAnchor:[22, 94], // point of the icon which will correspond to marker's location
-            //shadowAnchor:[4, 62],  // the same for the shadow
-            //shadowUrl:'leaf-shadow.png'
-        });
-        L.marker([lat,lon],{icon: issIcon}).addTo(map);//lat,long
+        marker = L.marker([lat,lon],{icon: issIcon});
+        map.addLayer(marker);//lat,long
 
         //create a red polyline from an array of LatLng points => for the trajectory
-        latlngs = latlngs.push([lat,lon]);
-        let polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+        let polyline = L.polyline(latlngs, {color:'red'}).addTo(map);
 
         // zoom the map to the polyline
         // map.fitBounds(polyline.getBounds());
-
         // let corner1 = L.latLng(40.712216, -74.22655);
         // let corner2 = L.latLng(40.774, -74.125);
         // let bounds = L.latLngBounds(corner1, corner2);
         // let imageUrl = './img-icon/iss.png';
         // L.imageOverlay(imageUrl, bounds).addTo(map);
+
         setTimeout(callIss,5000);
     } else {
-        alert("HTTP-Error: " + response.status);
+        alert("HTTP-Error: "+response.status);
     }
 }
 callIss();
