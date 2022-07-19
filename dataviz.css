@@ -6,10 +6,9 @@ h1 {
 }
 
 #map { 
-    display:flex;
     height:768px;
     width:768px;
-    align-items:center;
+    margin: auto;
 }
 
 h2 {
