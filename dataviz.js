@@ -1,8 +1,8 @@
 //projet dataviz
 
 //set the map with leaflet
-let map = L.map('map',{
-    zoomSnap:0.1,
+let map = L.map('map', {
+    zoomSnap: 0.1,
     renderer: L.svg()
 }).setView([0, 0], 1.6);
 
@@ -15,15 +15,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let latlngs = [];
 let issIcon = L.icon({
-    iconUrl:'./img-icon/iss.png',
-    iconSize:[33, 30] // size of the icon => width/height
+    iconUrl: './img-icon/iss.png',
+    iconSize: [33, 30] // size of the icon => width/height
     //popupAnchor:[-3, -76] // point from which the popup should open relative to the iconAnchor
     //shadowSize:[50, 64], // size of the shadow
     //iconAnchor:[22, 94], // point of the icon which will correspond to marker's location
     //shadowAnchor:[4, 62],  // the same for the shadow
     //shadowUrl:'leaf-shadow.png'
 });
-let marker = L.marker([48.856614,2.3522219],{icon: issIcon});
+let marker = L.marker([48.856614, 2.3522219], { icon: issIcon });
 
 async function callIss() {
     let response = await fetch('http://api.open-notify.org/iss-now.json');
@@ -33,14 +33,14 @@ async function callIss() {
         let json = await response.json();
         let lat = json.iss_position.latitude;
         let lon = json.iss_position.longitude;
-        latlngs.push([lat,lon]);
+        latlngs.push([lat, lon]);
         //console.log(latlngs);
         // geolocalize iss with lat and long and the icon
-        marker = L.marker([lat,lon],{icon: issIcon});
+        marker = L.marker([lat, lon], { icon: issIcon });
         map.addLayer(marker);//lat,long
 
         //create a red polyline from an array of LatLng points => for the trajectory
-        let polyline = L.polyline(latlngs, {color:'red'}).addTo(map);
+        let polyline = L.polyline(latlngs, { color: 'red' }).addTo(map);
 
         // zoom the map to the polyline
         // map.fitBounds(polyline.getBounds());
@@ -50,9 +50,42 @@ async function callIss() {
         // let imageUrl = './img-icon/iss.png';
         // L.imageOverlay(imageUrl, bounds).addTo(map);
 
-        setTimeout(callIss,5000);
+        setTimeout(callIss, 5000);
     } else {
-        alert("HTTP-Error: "+response.status);
+        alert("HTTP-Error: " + response.status);
     }
 }
 callIss();
+
+ /*async function picOfTheDay() {
+    let result = await fetch("https://api.nasa.gov/planetary/apod?api_key=eUSAP5eKNXwhnyXVdH3GRvZkeEUgF1poWEDJbe4A")
+        .then(result => result.json())
+        .then(data => {
+
+            const img = document.getElementById("img");
+            img.src = data.url;
+            
+        })
+}*/
+
+//fetch("https://api.nasa.gov/planetary/apod?api_key=eUSAP5eKNXwhnyXVdH3GRvZkeEUgF1poWEDJbe4A")
+//.then(reponse => reponse.json())
+//.then(reponse2 => console.table(reponse2))
+
+var req = new XMLHttpRequest();
+var url = "https://api.nasa.gov/planetary/apod?api_key=";
+var api_key = "eUSAP5eKNXwhnyXVdH3GRvZkeEUgF1poWEDJbe4A";
+
+req.open("GET", url + api_key);
+req.send();
+
+req.addEventListener("load", function(){
+	if(req.status == 200 && req.readyState == 4){
+  	var response = JSON.parse(req.responseText);
+    document.getElementById("title").textContent = response.title;
+    document.getElementById("date").textContent = response.date;
+    document.getElementById("pic").src = response.hdurl;
+    document.getElementById("explanation").textContent = response.explanation;
+  }
+})
+
