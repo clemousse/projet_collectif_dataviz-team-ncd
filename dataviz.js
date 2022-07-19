@@ -13,30 +13,38 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "© OpenStreetMap",
 }).addTo(map);
 
+let latlngs = [];
+let issIcon = L.icon({
+  iconUrl: "./img-icon/iss.png",
+  iconSize: [33, 30], // size of the icon => width/height
+  //popupAnchor:[-3, -76] // point from which the popup should open relative to the iconAnchor
+  //shadowSize:[50, 64], // size of the shadow
+  //iconAnchor:[22, 94], // point of the icon which will correspond to marker's location
+  //shadowAnchor:[4, 62],  // the same for the shadow
+  //shadowUrl:'leaf-shadow.png'
+});
+let marker = L.marker([48.856614, 2.3522219], { icon: issIcon });
+
 async function callIss() {
   let response = await fetch("http://api.open-notify.org/iss-now.json");
   if (response.ok) {
     // if HTTP-status is 200-299
     // get the response body and parse it => json object
+    map.removeLayer(marker);
     let json = await response.json();
     let lat = json.iss_position.latitude;
     let lon = json.iss_position.longitude;
+    latlngs.push([lat, lon]);
+    //console.log(latlngs);
     // geolocalize iss with lat and long and the icon
-    let issIcon = L.icon({
-      iconUrl: "./img-icon/iss.png",
-      iconSize: [33, 30], // size of the icon => width/height
-      //popupAnchor:[-3, -76] // point from which the popup should open relative to the iconAnchor
-      //shadowSize:[50, 64], // size of the shadow
-      //iconAnchor:[22, 94], // point of the icon which will correspond to marker's location
-      //shadowAnchor:[4, 62],  // the same for the shadow
-      //shadowUrl:'leaf-shadow.png'
-    });
-    L.marker([lat, lon], { icon: issIcon }).addTo(map); //lat,long
+    marker = L.marker([lat, lon], { icon: issIcon });
+    map.addLayer(marker); //lat,long
 
-    // //create a red polyline from an array of LatLng points => for the trajectory
-    // tlngs = latlngs.push([lat, lon]);
-    // let polyline = L.polyline(latlngs, { color: "red" }).addTo(map);la
+    //create a red polyline from an array of LatLng points => for the trajectory
+    let polyline = L.polyline(latlngs, { color: "red" }).addTo(map);
 
+    // zoom the map to the polyline
+    // map.fitBounds(polyline.getBounds());
     // let corner1 = L.latLng(40.712216, -74.22655);
     // let corner2 = L.latLng(40.774, -74.125);
     // let bounds = L.latLngBounds(corner1, corner2);
@@ -49,3 +57,22 @@ async function callIss() {
   }
 }
 callIss();
+
+// API APOD de la NASA
+
+var req = new XMLHttpRequest();
+var url = "https://api.nasa.gov/planetary/apod?api_key=";
+var api_key = "5B6oJsSCQyekXZvNOKpsUhRPl1e7FHqjIAyHpybk";
+
+req.open("GET", url + api_key);
+req.send();
+
+req.addEventListener("load", function () {
+  if (req.status == 200 && req.readyState == 4) {
+    var response = JSON.parse(req.responseText);
+    document.getElementById("title").textContent = response.title;
+    document.getElementById("date").textContent = response.date;
+    document.getElementById("pic").src = response.hdurl;
+    document.getElementById("explanation").textContent = response.explanation;
+  }
+});
