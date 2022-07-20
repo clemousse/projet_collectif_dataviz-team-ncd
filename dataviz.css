@@ -54,3 +54,16 @@ p {
     90%{transform: translateX(-640px);}
     90%{transform: translateX(-400px);}
 }
+
+h3,h4,h5 {
+    text-align: center;
+    font-family: monospace;
+    color:aliceblue;
+}
+
+.centrer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}

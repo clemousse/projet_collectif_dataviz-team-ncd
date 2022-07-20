@@ -25,7 +25,7 @@ let issIcon = L.icon({
     iconUrl:'./img-icon/iss.png',
     iconSize:[33, 30] // size of the icon => width/height
 });
-let marker = L.marker([48.856614,2.3522219],{icon: issIcon});
+let marker = L.marker([48.856614, 2.3522219], { icon: issIcon });
 
 async function callIss() {
     let response = await fetch('http://api.open-notify.org/iss-now.json');
@@ -41,18 +41,38 @@ async function callIss() {
         map.addLayer(marker);
 
         // compare iss's lon with map's lon to avoid the red line back
-        if (0<=lon<180) {
+        if (lon<180 & lon>=0) {
+            //console.log("dans les plus");
             latlngs.push([lat,lon]);
             // create a red polyline from an array of LatLng points => for the trajectory
-            let polyline=L.polyline(latlngs, {color:'red'}).addTo(map);
+            L.polyline(latlngs,{color:'red'}).addTo(map);
         } else if (lon<0){
+            //console.log("dans les moins");
             latlngs2.push([lat,lon]);
-            let polyline=L.polyline(latlngs2, {color:'red'}).addTo(map);
+            L.polyline(latlngs2,{color:'red'}).addTo(map);
         }
-
-        //setTimeout(callIss,5000);
+        setTimeout(callIss,5000);
     } else {
         alert("HTTP-Error: "+response.status);
     }
 }
 callIss();
+
+// API APOD de la NASA
+
+var req = new XMLHttpRequest();
+var url = "https://api.nasa.gov/planetary/apod?api_key=";
+var api_key = "5B6oJsSCQyekXZvNOKpsUhRPl1e7FHqjIAyHpybk";
+
+req.open("GET", url + api_key);
+req.send();
+
+req.addEventListener("load", function () {
+  if (req.status == 200 && req.readyState == 4) {
+    var response = JSON.parse(req.responseText);
+    document.getElementById("title").textContent = response.title;
+    document.getElementById("date").textContent = response.date;
+    document.getElementById("pic").src = response.hdurl;
+    document.getElementById("explanation").textContent = response.explanation;
+  }
+});
