@@ -5,6 +5,15 @@ h1 {
     font-family: monospace;
 }
 
+button,input{
+    height:20px; 
+    width:100px; 
+    margin: auto ; 
+    position:relative;
+    top:50%; 
+    left:50%;
+}
+
 #map { 
     height:768px;
     width:768px;
