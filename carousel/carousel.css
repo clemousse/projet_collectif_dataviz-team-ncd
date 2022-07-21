@@ -27,6 +27,12 @@ body {
   height: 32rem;
 }
 
+.imgISS {
+  max-width:200%;
+  max-height:200%;
+  background-repeat:repeat;
+}
+
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
