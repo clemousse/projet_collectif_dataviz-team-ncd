@@ -28,9 +28,11 @@ body {
 }
 
 .imgISS {
-  max-width:200%;
-  max-height:200%;
-  background-repeat:repeat;
+  max-width:auto;
+  max-height:auto;
+  background-repeat:no-repeat;
+  background-image: url('../img-header/iss.jpg') ;
+  background-size: cover;
 }
 
 
