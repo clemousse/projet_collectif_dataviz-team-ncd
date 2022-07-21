@@ -30,6 +30,7 @@ body {
 
 .lead { 
   color: rgb(212, 219, 225);
+  text-align: justify;
 }
 
 a {

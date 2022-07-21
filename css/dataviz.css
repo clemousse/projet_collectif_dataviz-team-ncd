@@ -5,6 +5,31 @@ h1 {
     font-family: monospace;
 }
 
+button,input{
+    height:20px; 
+    width:100px; 
+    margin: auto ; 
+    position:relative;
+    top:50%; 
+    left:50%;
+}
+
+#map { 
+    height:768px;
+    width:768px;
+    align-items:center;
+    margin: auto;
+}
+.centrer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+#pic { 
+    align-items:center;
+    margin: auto;
+}
 
 h2 {
     color:rgb(206,206,206) ;
