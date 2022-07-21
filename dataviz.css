@@ -5,7 +5,6 @@ h1 {
     font-family: monospace;
 }
 
-<<<<<<< HEAD
 button,input{
     height:20px; 
     width:100px; 
@@ -31,8 +30,6 @@ button,input{
     align-items:center;
     margin: auto;
 }
-=======
->>>>>>> 4b688dc111b5a252f5349a1d05df96939bd410c7
 
 h2 {
     color:rgb(206,206,206) ;
