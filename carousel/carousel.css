@@ -36,6 +36,9 @@ body {
 a {
   color: rgb(212, 219, 225);
 }
+a:hover{
+  color:rgb(63, 202, 172)!important;
+}
 .container1 {
   color: rgb(212, 219, 225);
 }
@@ -113,6 +116,20 @@ a {
   margin:auto;
 }
 
+#dateUser {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 4px;
+}
+#btn{
+  border:0px;
+  padding-bottom: 3px !important;
+}
+.btn:hover {
+  color: rgb(63,202,172)!important;
+  border-color: rgb(22,71,60);
+  background-color: rgb(22,71,60)!important;
+}
 .featurette-divider {
   margin: 5rem 0; /* Space out the Bootstrap <hr> more */
 }
