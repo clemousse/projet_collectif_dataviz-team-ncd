@@ -30,52 +30,57 @@ let issIcon = L.icon({
 let marker = L.marker([48.856614, 2.3522219], { icon: issIcon });
 
 //set map zoom and view according to zoom clientwidth
-  // tablets are between 768 and 922 pixels wide
-  // phones are less than 768 pixels wide
+// tablets are between 768 and 922 pixels wide
+// phones are less than 768 pixels wide
 if (document.documentElement.clientWidth < 577) {
   // console.log("resize <577")
   map.setView([0, 0], 0);
-    // console.log(map.getZoom());
-}  else  if (document.documentElement.clientWidth < 1201 & document.documentElement.clientWidth > 576){
+  // console.log(map.getZoom());
+} else if (
+  (document.documentElement.clientWidth < 1201) &
+  (document.documentElement.clientWidth > 576)
+) {
   // console.log("resize 576<1200")
   map.setView([0, 0], 1);
   // console.log(map.getZoom());
-} else if (document.documentElement.clientWidth > 1200){
+} else if (document.documentElement.clientWidth > 1200) {
   // console.log("resize >1200")
   map.setView([0, 0], 1.6);
   // console.log(map.getZoom());
 }
 
 // listen for screen resize events
-window.addEventListener('resize', function(event){
+window.addEventListener("resize", function (event) {
   // get the width of the screen after the resize event
   let width = document.documentElement.clientWidth;
   // tablets are between 768 and 922 pixels wide
   // phones are less than 768 pixels wide
   if (width < 577) {
-    console.log("resize <577")
+    console.log("resize <577");
     map.setView([0, 0], 0);
     console.log(map.getZoom());
-  }  else  if (width < 1201 & width > 576){
-    console.log("resize 576<1200")
+  } else if ((width < 1201) & (width > 576)) {
+    console.log("resize 576<1200");
     map.setView([0, 0], 1);
     console.log(map.getZoom());
-  } else if (width > 1200){
-    console.log("resize >1200")
+  } else if (width > 1200) {
+    console.log("resize >1200");
     map.setView([0, 0], 1.6);
     console.log(map.getZoom());
   }
 });
 
 async function callIss() {
-  let response = await fetch("http://api.open-notify.org/iss-now.json");
+  let response = await fetch(
+    "https://api.wheretheiss.at/v1/satellites/25544.json"
+  );
   if (response.ok) {
     // if HTTP-status is 200-299
     // get the response body and parse it => json object
     map.removeLayer(marker);
     let json = await response.json();
-    let lat = json.iss_position.latitude;
-    let lon = json.iss_position.longitude;
+    let lat = json.latitude;
+    let lon = json.longitude;
 
     // geolocalize iss with lat and long and the icon
     marker = L.marker([lat, lon], { icon: issIcon });
