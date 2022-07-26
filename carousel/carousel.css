@@ -114,6 +114,7 @@ a:hover{
   height:768px;
   width:768px;
   margin:auto;
+  text-align:center;
 }
 
 #dateUser {
@@ -172,20 +173,38 @@ hr {
     height:186px;
     width:264px;
     margin:0 auto;
+    text-align:center;
+  }
+  #pic {
+    width:264px;
+    margin:auto;
+    text-align:center;
   }
 }
-@media (min-width:400px) and (max-width:515px) {
+@media (min-width:400px) and (max-width:520px) {
   iframe {
     height:186px;
     width:264px;
     margin:0 auto;
+    text-align:center;
+  }
+  #pic {
+    width:380px;
+    margin:auto;
+    text-align:center;
   }
 }
-@media (min-width:515px) and (max-width:768px) {
+@media (min-width:520px) and (max-width:768px) {
   iframe {
     height:250px;
     width:492px;
     margin:0 auto;
+    text-align:center;
+  }
+  #pic {
+    width:500px;
+    margin:auto;
+    text-align:center;
   }
 }
 
@@ -200,6 +219,7 @@ hr {
     height:256px;
     width:256px;
     margin:0 auto;
+    text-align:center;
   }
 }
 @media (min-width:577px) and (max-width: 1200px) {
@@ -207,5 +227,31 @@ hr {
     height:512px;
     width:512px;
     margin:0 auto;
+    text-align:center;
+  }
+}
+@media (min-width:1200px) and (max-width: 1400px) {
+  #map {
+    height:640px;
+    width:640px;
+    margin:0 auto;
+    text-align:center;
+  }
+}
+/*for the h1.navbar-brand*/
+@media (max-width: 360px) {
+  h1.navbar-brand  {
+    font-size: 10px;
+  }
+}
+
+@media (min-width:361px) and (max-width: 515px) {
+  h1.navbar-brand  {
+  font-size: 12px;
+ }   
+}
+@media (max-width:992px){
+  .ctr{
+    text-align:center;
   }
 }

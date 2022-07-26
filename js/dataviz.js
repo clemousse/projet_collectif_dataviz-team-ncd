@@ -40,7 +40,11 @@ if (document.documentElement.clientWidth < 577) {
   // console.log("resize 576<1200")
   map.setView([0, 0], 1);
   // console.log(map.getZoom());
-} else if (document.documentElement.clientWidth > 1200){
+} else  if (document.documentElement.clientWidth < 1401 & document.documentElement.clientWidth > 1200){
+  // console.log("resize 576<1200")
+  map.setView([0, 0], 1.3);
+  // console.log(map.getZoom());
+} else if (document.documentElement.clientWidth > 1400){
   // console.log("resize >1200")
   map.setView([0, 0], 1.6);
   // console.log(map.getZoom());
@@ -53,17 +57,21 @@ window.addEventListener('resize', function(event){
   // tablets are between 768 and 922 pixels wide
   // phones are less than 768 pixels wide
   if (width < 577) {
-    console.log("resize <577")
+    // console.log("resize <577")
     map.setView([0, 0], 0);
-    console.log(map.getZoom());
+    // console.log(map.getZoom());
   }  else  if (width < 1201 & width > 576){
-    console.log("resize 576<1200")
+    // console.log("resize 576<1200")
     map.setView([0, 0], 1);
-    console.log(map.getZoom());
+    // console.log(map.getZoom());
+  } else  if (width < 1401 & width > 1200){
+    // console.log("resize 576<1200")
+    map.setView([0, 0], 1.3);
+    // console.log(map.getZoom());
   } else if (width > 1200){
-    console.log("resize >1200")
+    //console.log("resize >1200")
     map.setView([0, 0], 1.6);
-    console.log(map.getZoom());
+    //console.log(map.getZoom());
   }
 });
 
@@ -78,7 +86,7 @@ async function callIss() {
     let lon = json.iss_position.longitude;
 
     // geolocalize iss with lat and long and the icon
-    marker = L.marker([lat, lon], { icon: issIcon });
+    marker = L.marker([lat, lon], {icon: issIcon});
     map.addLayer(marker);
 
     // compare iss's lon with map's lon to avoid the red line back
@@ -86,11 +94,11 @@ async function callIss() {
       //console.log("dans les plus");
       latlngs.push([lat, lon]);
       // create a red polyline from an array of LatLng points => for the trajectory
-      L.polyline(latlngs, { color: "red" }).addTo(map);
+      L.polyline(latlngs, {color: "red"}).addTo(map);
     } else if (lon < 0) {
       //console.log("dans les moins");
       latlngs2.push([lat, lon]);
-      L.polyline(latlngs2, { color: "red" }).addTo(map);
+      L.polyline(latlngs2, {color: "red"}).addTo(map);
     }
     setTimeout(callIss, 5000);
   } else {
@@ -128,10 +136,12 @@ async function imgOnClick() {
   if (response.ok) {
     // if HTTP-status is 200-299
     let json = await response.json();
+    console.log(json);
     document.getElementById("title").textContent = json.title;
     document.getElementById("date").textContent = json.date;
     document.getElementById("pic").src = json.hdurl;
     document.getElementById("explanation").textContent = json.explanation;
+    
   }
 }
 
