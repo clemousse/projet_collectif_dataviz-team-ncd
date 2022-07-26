@@ -171,40 +171,41 @@ hr {
   iframe {
     height:186px;
     width:264px;
-    margin:auto;
+    margin:0 auto;
   }
 }
-@media (min-width:400px) and (max-width:768px) {
+@media (min-width:400px) and (max-width:515px) {
   iframe {
     height:186px;
     width:264px;
-    margin:auto;
+    margin:0 auto;
   }
 }
-@media (min-width:400px) and (max-width:400px) {
+@media (min-width:515px) and (max-width:768px) {
   iframe {
-    height:186px;
-    width:264px;
-    margin:auto;
+    height:250px;
+    width:492px;
+    margin:0 auto;
   }
 }
-@media (max-width: 576px) {
-  #map {
-    height:256px;
-    width:256px;
-    margin:auto;
-  }
-}
+
 @media (min-width:992px) and (max-width:1200px){
   iframe {
     height:375px;
     width:550px;
   }
 }
+@media (max-width: 576px) {
+  #map {
+    height:256px;
+    width:256px;
+    margin:0 auto;
+  }
+}
 @media (min-width:577px) and (max-width: 1200px) {
   #map {
     height:512px;
     width:512px;
-    margin:auto;
+    margin:0 auto;
   }
 }
