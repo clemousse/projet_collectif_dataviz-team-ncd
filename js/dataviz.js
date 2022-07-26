@@ -11,20 +11,61 @@ let map = L.map("map", {
   zoomSnap: 0.1,
 }).setView([0, 0], 1.6);
 
+map.setMaxBounds(map.getBounds());
+
 // set the tile openstreetmap
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  minZoom: 1.6,
+  minZoom: 0,
   maxZoom: 18,
   attribution: "© OpenStreetMap",
 }).addTo(map);
 
 let latlngs = [],
   latlngs2 = [];
+
 let issIcon = L.icon({
   iconUrl: "../img-icon/iss.png",
   iconSize: [33, 30], // size of the icon => width/height
 });
 let marker = L.marker([48.856614, 2.3522219], { icon: issIcon });
+
+//set map zoom and view according to zoom clientwidth
+  // tablets are between 768 and 922 pixels wide
+  // phones are less than 768 pixels wide
+if (document.documentElement.clientWidth < 577) {
+  // console.log("resize <577")
+  map.setView([0, 0], 0);
+    // console.log(map.getZoom());
+}  else  if (document.documentElement.clientWidth < 1201 & document.documentElement.clientWidth > 576){
+  // console.log("resize 576<1200")
+  map.setView([0, 0], 1);
+  // console.log(map.getZoom());
+} else if (document.documentElement.clientWidth > 1200){
+  // console.log("resize >1200")
+  map.setView([0, 0], 1.6);
+  // console.log(map.getZoom());
+}
+
+// listen for screen resize events
+window.addEventListener('resize', function(event){
+  // get the width of the screen after the resize event
+  let width = document.documentElement.clientWidth;
+  // tablets are between 768 and 922 pixels wide
+  // phones are less than 768 pixels wide
+  if (width < 577) {
+    console.log("resize <577")
+    map.setView([0, 0], 0);
+    console.log(map.getZoom());
+  }  else  if (width < 1201 & width > 576){
+    console.log("resize 576<1200")
+    map.setView([0, 0], 1);
+    console.log(map.getZoom());
+  } else if (width > 1200){
+    console.log("resize >1200")
+    map.setView([0, 0], 1.6);
+    console.log(map.getZoom());
+  }
+});
 
 async function callIss() {
   let response = await fetch("http://api.open-notify.org/iss-now.json");
