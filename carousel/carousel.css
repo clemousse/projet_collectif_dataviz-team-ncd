@@ -208,3 +208,15 @@ hr {
     margin:auto;
   }
 }
+
+@media (max-width: 360px) {
+  h1.navbar-brand  {
+  font-size: 9px;
+  }
+  }
+
+  @media (min-width:361px) and (max-width: 515px) {
+    h1.navbar-brand  {
+    font-size: 12px;
+    }
+    }
