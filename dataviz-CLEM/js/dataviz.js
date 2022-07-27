@@ -87,6 +87,7 @@ async function callIss() {
 
     // geolocalize iss with lat and long and the icon
     marker = L.marker([lat, lon], {icon: issIcon});
+    marker.bindPopup("<b>There's ISS !</b><br>Scientists Nico, Dede and Clem.").openPopup();
     map.addLayer(marker);
 
     // compare iss's lon with map's lon to avoid the red line back
