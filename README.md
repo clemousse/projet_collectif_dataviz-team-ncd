@@ -1,4 +1,4 @@
-#This is our Dataviz team project at Ada Tech School, with Delhia Gbelidji (@DelhiaGbelidji) and Nicolas Baran (@ncls-brn) !
+# This is our Dataviz team project at Ada Tech School, with Delhia Gbelidji (@DelhiaGbelidji) and Nicolas Baran (@ncls-brn) !
 
 It's a responsive website that provides informations about space :
 
